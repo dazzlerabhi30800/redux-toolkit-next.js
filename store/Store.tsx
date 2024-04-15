@@ -50,7 +50,7 @@ const storeSlice = createSlice({
     builder.addCase(fetchMessages.fulfilled, (state, action) => {
       state.loading = false;
       state.email = [...action.payload];
-      console.log(state.email);
+      //   console.log(state.email);
     });
   },
 });
@@ -79,18 +79,11 @@ export const { setLoading, setTodos } = storeSlice.actions;
 
 export const persistor = persistStore(store);
 
-export const todoSelector = createSelector(
-  (state) => state.todoReducer.todos,
-  (todos) => {
-    console.log("let's see how many times it's rerendered");
-    return todos;
-  }
-);
-
 export const emailSelector = createSelector(
   (state) => state.todoReducer.email,
   (email) => {
+    const newArr = [...email];
     console.log("let's see how many times it's rerendered");
-    return email;
+    return newArr;
   }
 );

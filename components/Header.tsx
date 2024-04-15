@@ -3,7 +3,6 @@ import {
   emailSelector,
   fetchMessages,
   setLoading,
-  todoSelector,
   useAppDispatch,
   useAppSelector,
 } from "@/store/Store";
@@ -13,6 +12,7 @@ export default function Header() {
   const dispatch = useAppDispatch();
   const loading = useAppSelector((state) => state.todoReducer.loading);
   const email = useAppSelector(emailSelector);
+  const todos = useAppSelector((state) => state.todoReducer.todos);
   useEffect(() => {
     return () => {
       dispatch(fetchMessages());
@@ -20,18 +20,18 @@ export default function Header() {
   }, []);
   return (
     <header className="text-xl font-bold flex flex-col gap-3">
-      {/* <h1>{loading ? "Loading..." : "Everything Loaded"}</h1> */}
+      <h1>{loading ? "Loading..." : "Everything Loaded"}</h1>
       <button
         onClick={() => dispatch(setLoading())}
         className="bg-rose-400 text-black font-bolder py-1 px-4 rounded-md"
       >
         Change the Loading State
       </button>
-      {/* <ul className="flex flex-col gap-4 text-xl">
-        {todos.map((todo, index) => (
+      <ul className="flex flex-col gap-4 text-xl">
+        {todos.map((todo: string, index: number) => (
           <li key={index}>{todo}</li>
         ))}
-      </ul> */}
+      </ul>
     </header>
   );
 }
